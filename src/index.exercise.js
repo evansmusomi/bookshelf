@@ -1,19 +1,41 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+
+import {Dialog} from '@reach/dialog'
+import '@reach/dialog/styles.css'
+
 import {Logo} from './components/logo'
 
 function App() {
+  const [openModal, setOpenModal] = React.useState('none')
+
   return (
-    <div>
+    <>
       <Logo width="80" height="80" />
       <h1>Bookshelf</h1>
       <div>
-        <button onClick={() => alert('login clicked')}>Login</button>
+        <button onClick={() => setOpenModal('login')}>Login</button>
       </div>
       <div>
-        <button onClick={() => alert('register clicked')}>Register</button>
+        <button onClick={() => setOpenModal('register')}>Register</button>
       </div>
-    </div>
+      <Dialog
+        aria-label="Login form"
+        isOpen={openModal === 'login'}
+        onDismiss={() => setOpenModal('none')}
+      >
+        <button onClick={() => setOpenModal('none')}>Close</button>
+        <h3>Login</h3>
+      </Dialog>
+      <Dialog
+        aria-label="Registration form"
+        isOpen={openModal === 'register'}
+        onDismiss={() => setOpenModal('none')}
+      >
+        <button onClick={() => setOpenModal('none')}>Close</button>
+        <h3>Register</h3>
+      </Dialog>
+    </>
   )
 }
 
